@@ -5,7 +5,9 @@
 <title>Dragon Tiger – Fun Mode</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 *{box-sizing:border-box;}
 html,body{
@@ -97,6 +99,10 @@ html,body{
   opacity:0.6;
   text-align:center;
   padding-bottom:10px;
+  body {
+  overflow: hidden;
+  touch-action: manipulation;
+}
 }
 </style>
 </head>
