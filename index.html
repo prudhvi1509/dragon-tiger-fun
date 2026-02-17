@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link rel="manifest" href="manifest.json">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Dragon Tiger – Fun</title>
@@ -11,6 +18,17 @@
   --panel:#1a2c38;
   --green:#00e701;
   --red:#ff4d4d;
+  html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app {
+  height: 100vh;
+  width: 100vw;
+}
 }
 *{box-sizing:border-box}
 html,body{
@@ -173,10 +191,14 @@ function play(choice){
 }
 
 // FULLSCREEN
-function fs(){
-  const el=document.getElementById("app");
-  if(el.requestFullscreen) el.requestFullscreen();
-  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+<script>
+function goFullscreen() {
+  const el = document.documentElement;
+  if (el.requestFullscreen) el.requestFullscreen();
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  <button onclick="goFullscreen()">Fullscreen</button>
+}
+</script>
 }
 
 // ANTI-ADDICTION REMINDER
