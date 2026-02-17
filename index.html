@@ -145,9 +145,9 @@ select {
           <option value="1000">₹1000</option>
         </select>
 
-        <button onclick="play('dragon')">Dragon</button>
-        <button onclick="play('tie')">Tie</button>
-        <button onclick="play('tiger')">Tiger</button>
+        <button onclick="unlockAudio(); play('dragon')">Dragon</button>
+<button onclick="unlockAudio(); play('tie')">Tie</button>
+<button onclick="unlockAudio(); play('tiger')">Tiger</button>
       </div>
     </div>
   </div>
@@ -160,7 +160,17 @@ select {
     Fun only · No real money · Control is power
   </div>
 </div>
+<script>
+let audioUnlocked = false;
 
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  dealSound.play().then(() => {
+    dealSound.pause();
+    dealSound.currentTime = 0;
+  }).catch(() => {});
+}
 <script>
 let balance = 10000;
 
