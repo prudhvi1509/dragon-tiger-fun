@@ -2,278 +2,270 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Dragon Tiger – Fun Play</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dragon Tiger Fun</title>
 
 <style>
-body{
+*{box-sizing:border-box}
+html,body{
   margin:0;
-  background:#07151f;
+  height:100%;
+  background:#0b3d2e;
+  font-family:system-ui,-apple-system,Segoe UI;
   color:#fff;
-  font-family:system-ui;
 }
-header{
-  background:#000c14;
-  padding:12px 16px;
+
+.app{
+  max-width:420px;
+  margin:auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+.header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:10px 14px;
+  background:#06271e;
+  border-bottom:2px solid #0f6b4a;
 }
-.balance{color:#00ff90;font-weight:700}
+.balance{
+  color:#00ff9c;
+  font-weight:700;
+}
 
+/* DEALER */
 .dealer{
   text-align:center;
-  margin-top:10px;
-  opacity:0;
-  transition:opacity .8s;
+  padding:10px 0;
 }
-.dealer.show{opacity:1}
 .dealer img{
-  width:140px;
+  width:90px;
+  animation:sway 2.5s ease-in-out infinite;
+}
+@keyframes sway{
+  0%,100%{transform:rotate(-2deg)}
+  50%{transform:rotate(2deg)}
 }
 
+/* TABLE */
 .table{
-  margin:16px;
-  background:#0d2636;
-  border-radius:16px;
+  flex:1;
+  background:radial-gradient(circle,#0f6b4a,#063c2a);
+  border-radius:22px;
+  margin:10px;
   padding:16px;
+  box-shadow:inset 0 0 25px #000;
 }
 
+/* CARDS */
 .cards{
   display:flex;
   justify-content:space-around;
-  margin:16px 0;
+  margin-top:10px;
 }
-.card-wrap{
-  perspective:1000px;
-}
+.card-wrap{text-align:center}
 .card{
-  width:90px;height:120px;
-  position:relative;
-  transform-style:preserve-3d;
-  transition:transform .8s;
-}
-.card.flip{transform:rotateY(180deg)}
-.face{
-  position:absolute;
-  width:100%;height:100%;
-  backface-visibility:hidden;
+  width:90px;
+  height:130px;
   border-radius:10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:28px;
-  font-weight:700;
+  background:#123;
+  overflow:hidden;
+  transform:translateY(-40px) rotateY(180deg);
+  opacity:0;
 }
-.front{background:#fff;color:#000;transform:rotateY(180deg)}
-.back{background:#123}
+.card.show{
+  animation:deal 0.8s forwards;
+}
+@keyframes deal{
+  to{
+    transform:translateY(0) rotateY(0deg);
+    opacity:1;
+  }
+}
+.card img{
+  width:100%;
+  height:100%;
+}
 
-.bet-row{
+/* BET BUTTONS */
+.bet-area{
+  margin-top:18px;
   display:flex;
-  gap:10px;
+  justify-content:space-between;
 }
 .bet-btn{
   flex:1;
-  border:2px solid #00ff90;
-  background:#07151f;
+  margin:6px;
+  padding:14px 0;
+  font-size:16px;
+  font-weight:700;
+  border-radius:14px;
+  border:2px solid #00ff9c;
+  background:#06271e;
   color:#fff;
-  padding:10px;
-  border-radius:10px;
 }
 .bet-btn.active{
-  background:#00ff90;color:#000;
+  background:#00ff9c;
+  color:#003;
 }
 
-.chips{
-  display:flex;
-  gap:10px;
-  margin:12px 0;
+/* CONTROLS */
+.controls{
+  text-align:center;
+  margin-top:14px;
 }
-.chip{
-  padding:8px 14px;
-  border-radius:50px;
-  background:#1b3b52;
-  border:2px solid #00ff90;
-}
-
 .controls button{
-  width:100%;
-  padding:12px;
+  padding:12px 22px;
+  font-size:16px;
+  font-weight:700;
   border:none;
   border-radius:12px;
-  background:#00ff90;
-  font-weight:700;
+  background:#ffd54f;
+  color:#000;
 }
 
-.odds{
-  margin:16px;
-  background:#0d2636;
-  border-radius:14px;
-  overflow:hidden;
-}
-.odds div{
-  display:flex;
-}
-.odds span{
-  flex:1;
-  padding:10px;
-  border:1px solid #123;
-  text-align:center;
-}
-
+/* HISTORY */
 .history{
-  display:flex;
-  gap:6px;
-  padding:10px;
-  overflow-x:auto;
+  margin-top:14px;
+  font-size:14px;
+  text-align:center;
 }
 .history span{
-  width:32px;height:32px;
+  display:inline-block;
+  width:28px;
+  height:28px;
+  line-height:28px;
   border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  margin:2px;
+  font-weight:700;
 }
-.D{background:#ff9800}
-.T{background:#2196f3}
-.L{background:#9c27b0}
+.D{background:#e53935}
+.T{background:#1e88e5}
 
-footer{
+/* FOOTER */
+.footer{
   text-align:center;
   font-size:12px;
-  opacity:.6;
-  margin-bottom:20px;
+  opacity:.7;
+  padding:8px;
 }
 </style>
 </head>
 
 <body>
+<div class="app">
 
-<header>
-  <div>🐉 Dragon Tiger</div>
-  <div class="balance">₹ <span id="balance">200000</span></div>
-</header>
+  <div class="header">
+    <div>🐉 Dragon Tiger</div>
+    <div class="balance">₹ <span id="bal">200000</span></div>
+  </div>
 
-<div class="dealer" id="dealer">
-  <img src="https://i.imgur.com/1XKJ6dH.png">
-  <div>Dealing...</div>
-</div>
+  <div class="dealer">
+    <img src="https://i.imgur.com/8Qf6B9M.png" alt="Dealer">
+  </div>
 
-<div class="table">
-  <div class="cards">
-    <div>
+  <div class="table">
+
+    <div class="cards">
       <div class="card-wrap">
         <div class="card" id="dragonCard">
-          <div class="face back"></div>
-          <div class="face front" id="dFace">?</div>
+          <img id="dImg">
         </div>
+        Dragon
       </div>
-      Dragon
-    </div>
-    <div>
       <div class="card-wrap">
         <div class="card" id="tigerCard">
-          <div class="face back"></div>
-          <div class="face front" id="tFace">?</div>
+          <img id="tImg">
         </div>
+        Tiger
       </div>
-      Tiger
     </div>
-    <div>
-      <div class="card-wrap">
-        <div class="card" id="lionCard">
-          <div class="face back"></div>
-          <div class="face front" id="lFace">?</div>
-        </div>
-      </div>
-      Lion
+
+    <div class="bet-area">
+      <button class="bet-btn" onclick="selectBet('D')" id="betD">Dragon</button>
+      <button class="bet-btn" onclick="selectBet('T')" id="betT">Tiger</button>
     </div>
+
+    <div class="controls">
+      <button onclick="deal()">DEAL</button>
+    </div>
+
+    <div class="history" id="history"></div>
+
   </div>
 
-  <div class="bet-row">
-    <button class="bet-btn" onclick="pick('D')">Dragon</button>
-    <button class="bet-btn" onclick="pick('T')">Tiger</button>
-    <button class="bet-btn" onclick="pick('L')">Lion</button>
+  <div class="footer">
+    Fun money only • No real betting
   </div>
 
-  <div class="chips">
-    <div class="chip" onclick="add(100)">+100</div>
-    <div class="chip" onclick="add(500)">+500</div>
-    <div class="chip" onclick="add(1000)">+1000</div>
-    <div class="chip" onclick="clearBet()">Clear</div>
-  </div>
-
-  <div class="controls">
-    <div>Bet: ₹ <span id="bet">0</span></div>
-    <button onclick="deal()">DEAL</button>
-  </div>
 </div>
-
-<div class="odds">
-  <div><span>Winner D</span><span>2x</span></div>
-  <div><span>Winner T</span><span>2x</span></div>
-  <div><span>Winner L</span><span>2x</span></div>
-</div>
-
-<div class="history" id="history"></div>
-
-<footer>Fun money only • No real betting</footer>
 
 <script>
-let balance=200000,bet=0,side=null;
-const suits=["♠","♥","♦","♣"];
-const vals=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+let balance = 200000;
+let bet = null;
+let history = [];
 
-function rand(){
- let v=vals[Math.floor(Math.random()*13)];
- let s=suits[Math.floor(Math.random()*4)];
- return {t:v+s,val:vals.indexOf(v)+1};
+const deck = () => {
+  const suits=["S","H","D","C"];
+  const vals=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+  let v=vals[Math.floor(Math.random()*13)];
+  let s=suits[Math.floor(Math.random()*4)];
+  return {
+    val:vals.indexOf(v)+1,
+    img:`https://deckofcardsapi.com/static/img/${v}${s}.png`
+  };
+};
+
+function selectBet(b){
+  bet=b;
+  document.getElementById("betD").classList.toggle("active",b==="D");
+  document.getElementById("betT").classList.toggle("active",b==="T");
 }
-
-function pick(s){
- side=s;
- document.querySelectorAll('.bet-btn').forEach(b=>b.classList.remove('active'));
- event.target.classList.add('active');
-}
-
-function add(x){bet+=x;document.getElementById("bet").textContent=bet}
-function clearBet(){bet=0;document.getElementById("bet").textContent=0}
 
 function deal(){
- if(!side||bet<=0||bet>balance){alert("Invalid bet");return}
- balance-=bet;update();
+  if(!bet){alert("Select Dragon or Tiger");return;}
 
- document.getElementById("dealer").classList.add("show");
- document.querySelectorAll('.card').forEach(c=>c.classList.remove("flip"));
+  let d=deck(), t=deck();
 
- setTimeout(()=>{
-  let d=rand(),t=rand(),l=rand();
-  dFace.textContent=d.t;
-  tFace.textContent=t.t;
-  lFace.textContent=l.t;
+  let dc=document.getElementById("dragonCard");
+  let tc=document.getElementById("tigerCard");
 
-  dragonCard.classList.add("flip");
-  tigerCard.classList.add("flip");
-  lionCard.classList.add("flip");
+  dc.classList.remove("show");
+  tc.classList.remove("show");
 
-  let w="D",m=d.val;
-  if(t.val>m){w="T";m=t.val}
-  if(l.val>m){w="L"}
+  document.getElementById("dImg").src=d.img;
+  document.getElementById("tImg").src=t.img;
 
-  if(w===side) balance+=bet*2;
-  update();addHist(w);
-  document.getElementById("dealer").classList.remove("show");
- },1000);
+  setTimeout(()=>{
+    dc.classList.add("show");
+    tc.classList.add("show");
+  },100);
+
+  let win = d.val > t.val ? "D" : "T";
+
+  if(win===bet) balance += 1000;
+  else balance -= 1000;
+
+  document.getElementById("bal").textContent = balance;
+
+  history.unshift(win);
+  if(history.length>12) history.pop();
+  drawHistory();
 }
 
-function update(){
- document.getElementById("balance").textContent=balance;
-}
-
-function addHist(w){
- let s=document.createElement("span");
- s.textContent=w;s.className=w;
- history.prepend(s);
+function drawHistory(){
+  let h=document.getElementById("history");
+  h.innerHTML="";
+  history.forEach(r=>{
+    let s=document.createElement("span");
+    s.className=r;
+    s.textContent=r;
+    h.appendChild(s);
+  });
 }
 </script>
 
