@@ -6,219 +6,166 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
-html,body{
+body{
   margin:0;
-  height:100%;
-  background:#0b3d2e;
-  font-family:system-ui,-apple-system,Segoe UI;
+  background:radial-gradient(circle,#0b3d2e,#02160f);
+  font-family:Arial,Helvetica,sans-serif;
   color:#fff;
-}
-
-.app{
-  max-width:420px;
-  margin:auto;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 14px;
-  background:#06271e;
-  border-bottom:2px solid #0f6b4a;
-}
-.balance{
-  color:#00ff9c;
-  font-weight:700;
-}
-
-/* DEALER */
-.dealer{
   text-align:center;
-  padding:10px 0;
 }
-.dealer img{
-  width:90px;
-  animation:sway 2.5s ease-in-out infinite;
+h1{margin:10px 0;}
+.balance{
+  font-size:20px;
+  margin-bottom:10px;
 }
-@keyframes sway{
-  0%,100%{transform:rotate(-2deg)}
-  50%{transform:rotate(2deg)}
-}
-
-/* TABLE */
 .table{
-  flex:1;
-  background:radial-gradient(circle,#0f6b4a,#063c2a);
-  border-radius:22px;
-  margin:10px;
-  padding:16px;
-  box-shadow:inset 0 0 25px #000;
+  position:relative;
+  max-width:420px;
+  margin:0 auto;
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(#0f5132,#063d25);
+  box-shadow:0 0 25px #000 inset;
 }
-
-/* CARDS */
 .cards{
   display:flex;
-  justify-content:space-around;
-  margin-top:10px;
+  justify-content:space-between;
+  margin:20px 0;
 }
-.card-wrap{text-align:center}
-.card{
-  width:90px;
-  height:130px;
-  border-radius:10px;
+.card-slot{
+  width:130px;
+  height:180px;
   background:#123;
-  overflow:hidden;
-  transform:translateY(-40px) rotateY(180deg);
-  opacity:0;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 10px #000;
 }
-.card.show{
-  animation:deal 0.8s forwards;
-}
-@keyframes deal{
-  to{
-    transform:translateY(0) rotateY(0deg);
-    opacity:1;
-  }
-}
-.card img{
+.card-slot img{
   width:100%;
-  height:100%;
+  border-radius:12px;
+  opacity:0;
+  transform:translateY(-20px);
+  transition:all .4s ease;
 }
-
-/* BET BUTTONS */
-.bet-area{
-  margin-top:18px;
+.card-slot.show img{
+  opacity:1;
+  transform:translateY(0);
+}
+.buttons{
   display:flex;
   justify-content:space-between;
+  margin-top:15px;
 }
 .bet-btn{
-  flex:1;
-  margin:6px;
-  padding:14px 0;
-  font-size:16px;
-  font-weight:700;
-  border-radius:14px;
-  border:2px solid #00ff9c;
-  background:#06271e;
-  color:#fff;
-}
-.bet-btn.active{
-  background:#00ff9c;
-  color:#003;
-}
-
-/* CONTROLS */
-.controls{
-  text-align:center;
-  margin-top:14px;
-}
-.controls button{
-  padding:12px 22px;
-  font-size:16px;
-  font-weight:700;
+  width:48%;
+  padding:12px;
+  font-size:18px;
   border:none;
   border-radius:12px;
-  background:#ffd54f;
-  color:#000;
+  color:#fff;
+  cursor:pointer;
 }
-
-/* HISTORY */
+.bet-btn.active{
+  box-shadow:0 0 15px #fff;
+}
+#betD{background:#c62828;}
+#betT{background:#1565c0;}
+.deal-btn{
+  margin-top:15px;
+  padding:14px;
+  width:100%;
+  font-size:18px;
+  border:none;
+  border-radius:15px;
+  background:#ffb300;
+  color:#000;
+  cursor:pointer;
+  font-weight:bold;
+}
 .history{
-  margin-top:14px;
-  font-size:14px;
-  text-align:center;
+  margin-top:15px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 .history span{
-  display:inline-block;
-  width:28px;
-  height:28px;
-  line-height:28px;
+  width:26px;
+  height:26px;
   border-radius:50%;
-  margin:2px;
-  font-weight:700;
+  margin:3px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  color:#000;
+  font-weight:bold;
 }
-.D{background:#e53935}
-.T{background:#1e88e5}
-
-/* FOOTER */
 .footer{
-  text-align:center;
+  margin-top:10px;
   font-size:12px;
   opacity:.7;
-  padding:8px;
 }
 </style>
 </head>
 
 <body>
-<div class="app">
 
-  <div class="header">
-    <div>🐉 Dragon Tiger</div>
-    <div class="balance">₹ <span id="bal">200000</span></div>
-  </div>
+<h1>Dragon 🐉 Tiger 🐅</h1>
+<div class="balance">Balance: ₹<span id="bal">200000</span></div>
 
-  <div class="dealer">
-    <img src="https://i.imgur.com/8Qf6B9M.png" alt="Dealer">
-  </div>
+<div class="table">
 
-  <div class="table">
-
-    <div class="cards">
-      <div class="card-wrap">
-        <div class="card" id="dragonCard">
-          <img id="dImg">
-        </div>
-        Dragon
-      </div>
-      <div class="card-wrap">
-        <div class="card" id="tigerCard">
-          <img id="tImg">
-        </div>
-        Tiger
-      </div>
+  <div class="cards">
+    <div class="card-slot" id="dragonCard">
+      <img id="dImg">
     </div>
-
-    <div class="bet-area">
-      <button class="bet-btn" onclick="selectBet('D')" id="betD">Dragon</button>
-      <button class="bet-btn" onclick="selectBet('T')" id="betT">Tiger</button>
+    <div class="card-slot" id="tigerCard">
+      <img id="tImg">
     </div>
-
-    <div class="controls">
-      <button onclick="deal()">DEAL</button>
-    </div>
-
-    <div class="history" id="history"></div>
-
   </div>
 
-  <div class="footer">
-    Fun money only • No real betting
+  <div class="buttons">
+    <button id="betD" class="bet-btn" onclick="selectBet('D')">DRAGON</button>
+    <button id="betT" class="bet-btn" onclick="selectBet('T')">TIGER</button>
   </div>
+
+  <button class="deal-btn" onclick="deal()">DEAL</button>
+
+  <div class="history" id="history"></div>
 
 </div>
+
+<div class="footer">Fun-money only • No real gambling</div>
 
 <script>
 let balance = 200000;
 let bet = null;
 let history = [];
+let shoe = [];
 
-const deck = () => {
-  const suits=["S","H","D","C"];
-  const vals=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
-  let v=vals[Math.floor(Math.random()*13)];
-  let s=suits[Math.floor(Math.random()*4)];
-  return {
-    val:vals.indexOf(v)+1,
-    img:`https://deckofcardsapi.com/static/img/${v}${s}.png`
-  };
-};
+const suits = ["S","H","D","C"];
+const values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+
+function buildShoe(){
+  shoe=[];
+  suits.forEach(s=>{
+    values.forEach(v=>{
+      shoe.push({
+        val:values.indexOf(v)+1,
+        img:`https://deckofcardsapi.com/static/img/${v}${s}.png`
+      });
+    });
+  });
+  shoe.sort(()=>Math.random()-0.5);
+}
+buildShoe();
+
+function drawCard(){
+  if(shoe.length<10) buildShoe();
+  return shoe.pop();
+}
 
 function selectBet(b){
   bet=b;
@@ -227,9 +174,10 @@ function selectBet(b){
 }
 
 function deal(){
-  if(!bet){alert("Select Dragon or Tiger");return;}
+  if(!bet){ alert("Select Dragon or Tiger"); return; }
 
-  let d=deck(), t=deck();
+  let d = drawCard();
+  let t = drawCard();
 
   let dc=document.getElementById("dragonCard");
   let tc=document.getElementById("tigerCard");
@@ -237,24 +185,31 @@ function deal(){
   dc.classList.remove("show");
   tc.classList.remove("show");
 
-  document.getElementById("dImg").src=d.img;
-  document.getElementById("tImg").src=t.img;
+  setTimeout(()=>{
+    document.getElementById("dImg").src=d.img;
+    dc.classList.add("show");
+  },400);
 
   setTimeout(()=>{
-    dc.classList.add("show");
+    document.getElementById("tImg").src=t.img;
     tc.classList.add("show");
-  },100);
+  },900);
 
-  let win = d.val > t.val ? "D" : "T";
+  setTimeout(()=>{
+    let result;
+    if(d.val>t.val) result="D";
+    else if(t.val>d.val) result="T";
+    else result="TIE";
 
-  if(win===bet) balance += 1000;
-  else balance -= 1000;
+    if(result===bet) balance+=1000;
+    else if(result!=="TIE") balance-=1000;
 
-  document.getElementById("bal").textContent = balance;
+    document.getElementById("bal").textContent=balance;
 
-  history.unshift(win);
-  if(history.length>12) history.pop();
-  drawHistory();
+    history.unshift(result[0]);
+    if(history.length>15) history.pop();
+    drawHistory();
+  },1500);
 }
 
 function drawHistory(){
@@ -262,8 +217,10 @@ function drawHistory(){
   h.innerHTML="";
   history.forEach(r=>{
     let s=document.createElement("span");
-    s.className=r;
     s.textContent=r;
+    s.style.background =
+      r==="D" ? "#e53935" :
+      r==="T" ? "#1e88e5" : "#ffd54f";
     h.appendChild(s);
   });
 }
